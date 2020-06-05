@@ -3,7 +3,7 @@ const World= Matter.World;
 const Bodies = Matter.Bodies;
 
 var player;
-var virus1,virus2;
+var virus1,virus2,virus3;
 var coin1,coin2;
 var wall1,wall2;
 var i;
@@ -37,10 +37,33 @@ function setup(){
     
     player = createSprite(30,200,30,80);
     player.addImage("scientist" , player_image);
-    player.scale = 0.1;
+    player.scale = 0.08;
   virus1 = createSprite(140,240,20,20);
   virus1.addImage("corona",virus_image);
-  virus1.scale = 0.08
+  virus1.scale = 0.15;
+  virus1.velocityX = 1.5;
+  
+
+  virus2 = createSprite(640,100,20,20);
+  virus2.addImage("corona",virus_image);
+  virus2.scale = 0.15;
+  virus2.velocityX = 2;
+
+  virus3 = createSprite(400,140,20,20);
+  virus3.addImage("corona",virus_image);
+  virus3.scale = 0.15;
+
+  virus4 = createSprite(600,250,20,20);
+  virus4.addImage("corona",virus_image);
+  virus4.scale = 0.15;
+
+  virus5 = createSprite(600,250,20,20);
+  virus5.addImage("corona",virus_image);
+  virus5.scale = 0.15;
+
+  virus4 = createSprite(350,330,20,20);
+  virus4.addImage("corona",virus_image);
+  virus4.scale = 0.15;
  
   coin1 = createSprite(60,220,20,20);
   coin1.addImage("point" , coin_image);
@@ -235,7 +258,32 @@ if(keyDown(RIGHT_ARROW)){
   player.x=player.x+2;
 }
 
+ virus1.bounceOff(wall1);
+  virus1.bounceOff(wall7);
+if(virus1.bounceOff(wall1)){
+  virus1.velocityX = 2;
+    
+}if(virus1.bounceOff(wall7)){
+  virus1.velocityX = -2;
+}
 
+virus2.bounceOff(wall3);
+  virus2.bounceOff(wall8);
+if(virus2.bounceOff(wall8)){
+  virus2.velocityX = -1.5;
+    
+}if(virus2.bounceOff(wall3)){
+  virus2.velocityX = 1.5;
+}
+ player.collide(virus1);
+ 
+if(player.collide(virus1)){
+  text("Infected",600,200);
+  virus1.velocityX = 0;
+  virus1.velocityY = 0;
+ player.destroy();
+  
+}
 
 arrayLength = secondColumnArray.length;
 for (var i = 0; i < arrayLength; i++) {
@@ -302,9 +350,7 @@ arrayLength = fourteenthColumnArray.length;
 for (var i = 0; i < arrayLength; i++) {
     fourteenthColumnArray[i].display();
 }
-if(isTouching(player,coin)){
-  coin.destroy();
-}
+
 
 player.collide(wall);
 player.collide(wall1);
@@ -351,6 +397,10 @@ wall18.display();
  coin68.display();
  player.display();
  virus1.display();
+ virus2.display();
+ virus3.display();
+ virus4.display();
+ 
 }
 
 function isTouching(object1,object2){
